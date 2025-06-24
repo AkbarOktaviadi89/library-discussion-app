@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+
+<div class="requests-container">
+  <h2>📚 Permintaan Buku</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pengguna</th>
+        <th>Judul Buku</th>
+        <th>Status</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% requests.forEach(req => { %>
+        <tr>
+          <td><%= req.user ? req.user.username : 'Pengguna tidak ditemukan' %></td>
+
+          <td><%= req.bookTitle %></td>
+          <td>
+            <% if (req.status === 'pending') { %>
+              <span class="badge bg-warning text-dark">Menunggu</span>
+            <% } else if (req.status === 'disetujui') { %>
+              <span class="badge bg-success">Disetujui</span>
+            <% } else if (req.status === 'ditolak') { %>
+              <span class="badge bg-danger">Ditolak</span>
+            <% } %>
+          </td>
+          
+          <td class="action-buttons">
+            <% if (req.status === 'pending') { %>
+              <form action="/admin/requests/<%= req._id %>/approve" method="POST">
+                <button class="approve-btn" type="submit">Setujui</button>
+              </form>
+              <form action="/admin/requests/<%= req._id %>/reject" method="POST">
+                <button class="reject-btn" type="submit">Tolak</button>
+              </form>
+            <% } else { %>
+              <span class="no-action">Permintaan <%= req.status %></span>
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,168 @@
+<%- include('../partials/header') %>
+
+<style>
+  h2 {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: #2563eb;
+  }
+  .request-form input,
+  .request-form button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  .request-form button {
+    background-color: #6610f2;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .request-form button:hover {
+    background-color: #4e0dc6;
+  }
+  .request-table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .request-table th {
+    background-color: #2563eb;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .request-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .request-table tr:hover {
+    background-color: #f3f4f6;
+  }
+
+  .status {
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .status.Pending {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+
+  .status.Approved {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+
+  .status.Rejected {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin: 2rem auto;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<h2>📩 Daftar Permintaan Buku</h2>
+<div style="text-align: center; margin-bottom: 1.5rem;">
+  <button id="openModalBtn" class="back-link" style="display: inline-block; background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; border: none; cursor: pointer;">
+    + Request Buku
+  </button>
+</div>
+
+<table class="request-table">
+  <thead>
+    <tr>
+      <th>Judul Buku</th>
+      <th>Status</th>
+      <th>Tanggal Permintaan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% requests.forEach(req => { %>
+      <tr>
+        <td><%= req.bookTitle %></td>
+        <td>
+         <% if (req.status === 'pending') { %>
+              <span class="badge bg-warning text-dark">Menunggu</span>
+            <% } else if (req.status === 'disetujui') { %>
+              <span class="badge bg-success">Disetujui</span>
+            <% } else if (req.status === 'ditolak') { %>
+              <span class="badge bg-danger">Ditolak</span>
+            <% } %>
+          </td>
+        <td><%= req.createdAt.toLocaleDateString() %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div id="requestModal" class="modal" style="display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+  <div style="background-color: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; width: 90%; max-width: 500px; position: relative;">
+    <span id="closeModalBtn" style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
+    <h2 style="text-align: center;">📚 Form Request Buku</h2>
+    <form action="/user/requests" method="POST" class="request-form" style="flex-direction: column; gap: 10px; margin-top: 1rem;">
+      <input type="text" name="bookTitle" placeholder="Judul Buku" required />
+      <input type="text" name="author" placeholder="Pengarang" required />
+      <input type="number" name="tahunTerbit" placeholder="Tahun Terbit" required />
+      <input type="text" name="penerbit" placeholder="Penerbit" required />
+      <input type="text" name="isbn" placeholder="ISBN" required />
+      <button type="submit">Request Buku</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const openBtn = document.getElementById('openModalBtn');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const modal = document.getElementById('requestModal');
+
+  openBtn.onclick = () => {
+    modal.style.display = 'block';
+  };
+
+  closeBtn.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = (e) => {
+    if (e.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
+
+<a href="/user/books" class="back-link">← Kembali ke Buku</a>
+
+<%- include('../partials/footer') %>

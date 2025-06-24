@@ -1,0 +1,72 @@
+<%- include('../partials/header') %>
+
+<div class="manage-container">
+    <h2>📘 Kelola Buku</h2>
+
+    <h3>Tambah Buku Baru</h3>
+    <form action="/admin/books" method="POST">
+        <input type="text" name="title" placeholder="Judul" required />
+        <input type="text" name="author" placeholder="Penulis" required />
+        <input
+            type="number"
+            name="tahunTerbit"
+            placeholder="Tahun Terbit"
+            required
+        />
+        <input type="text" name="penerbit" placeholder="Penerbit" required />
+        <input type="text" name="isbn" placeholder="ISBN" required />
+        <input
+            type="number"
+            name="copies"
+            placeholder="Jumlah Salinan"
+            min="1"
+            value="1"
+            required
+        />
+        <button class="btn btn-success" type="submit">Tambah Buku</button>
+    </form>
+
+    <h3>Daftar Buku</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Judul</th>
+                <th>Penulis</th>
+                <th>Tahun Terbit</th>
+                <th>Penerbit</th>
+                <th>ISBN</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach(book => { %>
+            <tr>
+                <td><%= book.title %></td>
+                <td><%= book.author %></td>
+                <td><%= book.tahunTerbit %></td>
+                <td><%= book.penerbit %></td>
+                <td><%= book.isbn %></td>
+                <td><%= book.copies %></td>
+                <td>
+                    <a
+                        href="/admin/books/<%= book._id %>/edit"
+                        class="btn btn-warning text-white"
+                    >Ubah</a>
+                    <form
+                        action="/admin/books/<%= book._id %>?_method=DELETE"
+                        method="POST"
+                        onsubmit="return confirm('Apakah kamu yakin ingin menghapus buku ini?')"
+                    >
+                        <button class="btn btn-danger" type="submit">
+                            Hapus
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,117 @@
+<%- include('../partials/header') %>
+
+<style>
+  h2 {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: #2563eb;
+  }
+
+  table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  thead {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #1d4ed8;
+  }
+
+  .not-available {
+    color: #ef4444;
+    font-weight: bold;
+  }
+
+  .request-link {
+    display: block;
+    text-align: center;
+    margin: 2rem auto;
+    background-color: #10b981;
+    padding: 0.75rem 1.5rem;
+    width: fit-content;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .request-link:hover {
+    background-color: #059669;
+  }
+</style>
+
+<h2>📖 Buku Tersedia</h2>
+
+<div class="book-table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Judul</th>
+        <th>Author</th>
+        <th>Tahun Terbit</th>
+        <th>Penerbit</th>
+        <th>Isbn</th>
+        <th>Copies</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+      <% books.forEach(book => { %>
+        <tr>
+          <td><%= book.title %></td>
+                <td><%= book.author %></td>
+                <td><%= book.tahunTerbit %></td>
+                <td><%= book.penerbit %></td>
+                <td><%= book.isbn %></td>
+                <td><%= book.copies %></td>
+                <td>
+                  <% if (borrowedBookIds.includes(book._id.toString())) { %>
+                    <span class="not-available">Sudah Dipinjam</span>
+                  <% } else if (book.copies > 0) { %>
+                    <form action="/user/books/<%= book._id %>/borrow" method="POST">
+                      <button type="submit">Pinjam</button>
+                    </form>
+                  <% } else { %>
+                    <span class="not-available">Tidak Tersedia</span>
+                  <% } %>
+                </td>                
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<a href="/user/requests" class="request-link">📚 Request New Book</a>
+
+<%- include('../partials/footer') %>

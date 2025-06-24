@@ -1,0 +1,93 @@
+<%- include('../partials/header') %>
+
+<div class="manage-container">
+  <h2 style="text-align:center; font-size: 1.8rem; margin-bottom: 1rem;">✏️ Edit Buku</h2>
+
+  <form action="/admin/books/<%= book._id %>?_method=PUT" method="POST" class="book-form">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="title">Judul:</label>
+        <input type="text" id="title" name="title" value="<%= book.title %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="author">Penulis:</label>
+        <input type="text" id="author" name="author" value="<%= book.author %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="tahunTerbit">Tahun Terbit:</label>
+        <input type="number" id="tahunTerbit" name="tahunTerbit" value="<%= book.tahunTerbit %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="penerbit">Penerbit:</label>
+        <input type="text" id="penerbit" name="penerbit" value="<%= book.penerbit %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" value="<%= book.isbn %>" required />
+      </div>
+
+      <div class="form-group">
+        <label for="copies">Jumlah Salinan:</label>
+        <input type="number" id="copies" name="copies" value="<%= book.copies %>" min="1" required />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-success" type="submit">Perbarui Buku</button>
+      <a href="/admin/books" class="cancel-btn">Batal</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
+
+<style>
+  .manage-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .form-group input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+
+  .cancel-btn {
+    padding: 0.5rem 1rem;
+    color: #5a00cc;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+</style>

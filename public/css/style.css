@@ -1,0 +1,682 @@
+/* General Body Styles */
+html, body {
+  height: 100vh; /* Penting: Pastikan html dan body mengambil tinggi penuh viewport */
+  margin: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f7f6; /* Warna latar belakang yang lembut */
+  color: #333; /* Warna teks gelap untuk keterbacaan */
+  display: flex; /* Jadikan body sebagai container flex */
+  flex-direction: column; /* Susun children secara vertikal */
+}
+
+/* Navigation Bar Styles */
+nav {
+  background-color: #2563eb; /* Warna utama untuk latar belakang nav */
+  color: white; /* Teks putih untuk kontras */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan halus untuk kedalaman */
+  flex-shrink: 0; /* Mencegah nav menyusut jika ada terlalu banyak konten */
+}
+
+.nav-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem; /* Spasi antar tautan nav */
+  align-items: center;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.3s ease; /* Transisi halus saat hover */
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  color: #a0c4ff; /* Warna yang lebih cerah untuk efek hover */
+}
+
+.nav-links button {
+  background-color: red;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.0rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-links button:hover {
+  background-color: rgb(212, 38, 38);
+  color: #ffffff; /* Warna teks berubah menjadi warna tema utama saat hover */
+}
+
+/* Main Content Wrapper */
+.main-content-wrapper {
+  flex-grow: 1; /* Ini yang membuat wrapper ini mengambil semua ruang yang tersedia */
+  padding: 2rem; /* Tambahkan padding ke konten utama Anda */
+  max-width: 1200px;
+  margin: 0 auto; /* Pusatkan konten */
+  width: 100%; /* Pastikan mengambil lebar penuh dalam max-width */
+  box-sizing: border-box; /* Sertakan padding dalam perhitungan lebar */
+}
+
+
+/* Footer Styles */
+footer {
+  background-color: #2563eb; /* Gunakan warna tema utama untuk latar belakang footer */
+  color: white; /* Teks putih untuk kontras */
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto; /* Dorong footer ke bawah saat konten pendek */
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Bayangan halus untuk kedalaman */
+  flex-shrink: 0; /* Mencegah footer menyusut jika ada terlalu banyak konten */
+}
+
+/* Login Page Specific Styles */
+.login-container {
+  margin: 4rem auto; /* More vertical space from header/footer */
+  padding: 2.5rem; /* Increased padding inside the container */
+  background-color: #ffffff; /* Clean white background */
+  border-radius: 12px; /* Softly rounded corners */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Deeper, softer shadow for a floating effect */
+  font-family: 'Poppins', sans-serif;
+  text-align: center; /* Center the form elements */
+}
+
+.login-container h2 {
+  font-size: 2.2rem; /* Larger and more prominent heading */
+  color: #2563eb; /* Your primary brand color */
+  margin-bottom: 2rem; /* More space below the heading */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between form groups */
+}
+
+.form-group {
+  text-align: left; /* Align labels to the left */
+}
+
+.form-group label {
+  display: block; /* Make labels take their own line */
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.6rem; /* Space between label and input */
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 0.9rem 1.2rem; /* Generous padding for easier clicking/tapping */
+  border: 1px solid #d1d5db; /* Light gray border */
+  border-radius: 8px; /* Slightly rounded input fields */
+  font-size: 1rem;
+  color: #374151;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+  outline: none; /* Remove default outline */
+  border-color: #2563eb; /* Highlight border with primary color on focus */
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2); /* Soft blue glow on focus */
+}
+
+.login-container button[type="submit"] {
+  background-color: #2563eb; /* Your primary brand color for the button */
+  color: white;
+  padding: 1rem 1.5rem; /* Larger button padding */
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2); /* Subtle shadow for the button */
+  width: 100%; /* Make button full width */
+}
+
+.login-container button[type="submit"]:hover {
+  background-color: #1a2a6e; /* Slightly darker shade on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Ensure the main content wrapper provides space for this container */
+.main-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - (/* height of header */ + /* height of footer */)); /* Adjust if needed */
+  flex-grow: 1;
+}
+
+/* Optional: Add a simple message for registration */
+.login-container p.register-prompt {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+.login-container p.register-prompt a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-container p.register-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Register Page Specific Styles */
+.register-container {
+  margin: 4rem auto; /* Consistent vertical spacing */
+  padding: 2.5rem; /* Consistent padding */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+  text-align: center; /* Center the form elements */
+}
+
+.register-container h2 {
+  font-size: 2.2rem;
+  color: #2563eb;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.register-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between form groups */
+}
+
+.form-group {
+  text-align: left; /* Align labels to the left */
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #374151;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);
+}
+
+.register-container button[type="submit"] {
+  background-color: #2563eb;
+  color: white;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
+  width: 100%; /* Make button full width */
+}
+
+.register-container button[type="submit"]:hover {
+  background-color: #1a2a6e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+}
+
+/* Optional: Add a simple message for existing users */
+.register-container p.login-prompt {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+.register-container p.login-prompt a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-container p.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Landing Page Specific Styles */
+.welcome-container {
+  max-width: 700px; /* Adjust width as needed */
+  margin: 6rem auto; /* Ample space to center content */
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+  text-align: center; /* Center all text content */
+  display: flex; /* Use flexbox for vertical centering within the container */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px; /* Minimum height for the container */
+}
+
+.welcome-container h1 {
+  font-size: 2.8rem; /* Large, inviting heading */
+  color: #2563eb; /* Your primary brand color */
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+.welcome-container p {
+  font-size: 1.2rem;
+  color: #4b5563; /* Slightly darker gray for readability */
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.welcome-container a {
+  display: inline-block; /* Allows padding and margin */
+  background-color: #2563eb; /* Primary brand color for the button */
+  color: white;
+  padding: 1rem 2.5rem; /* Generous padding for a prominent button */
+  border-radius: 8px;
+  text-decoration: none; /* Remove underline */
+  font-size: 1.15rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2); /* Subtle shadow for the button */
+}
+
+.welcome-container a:hover {
+  background-color: #1a2a6e; /* Slightly darker shade on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Requests Page Specific Styles */
+.requests-container {
+  width: 70%; /* Wider container for better table display */
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.requests-container h2 {
+  font-size: 2.2rem;
+  color: #2563eb;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* Table styling */
+.requests-container table {
+  width: 100%;
+  border-collapse: separate; /* Allows border-radius on cells */
+  border-spacing: 0;
+  margin-top: 1.5rem;
+  background-color: #f9fafb; /* Light background for the table */
+  border-radius: 10px;
+  overflow: hidden; /* Ensures border-radius is applied to content */
+}
+
+.requests-container th,
+.requests-container td {
+  padding: 1rem 1.2rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb; /* Subtle line between rows */
+}
+
+.requests-container thead th {
+  background-color: #2563eb; /* Primary color for table header background */
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+/* Rounded corners for first and last header cells */
+.requests-container thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.requests-container thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* Styling for table body cells */
+.requests-container tbody td {
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+/* Alternate row styling for readability */
+.requests-container tbody tr:nth-child(even) {
+  background-color: #f3f6f9; /* Slightly different background for even rows */
+}
+
+/* Last row border removal for clean look */
+.requests-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status styling */
+.requests-container td:nth-child(3) { /* Targeting the status column */
+  font-weight: 600;
+}
+
+/* Specific status colors */
+.requests-container td:nth-child(3):contains("Pending") {
+  color: #f59e0b; /* Amber for pending */
+}
+
+.requests-container td:nth-child(3):contains("Approved") {
+  color: #10b981; /* Green for approved */
+}
+
+.requests-container td:nth-child(3):contains("Rejected") {
+  color: #ef4444; /* Red for rejected */
+}
+
+/* Action buttons styling */
+.action-buttons {
+  gap: 0.5rem; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap if needed */
+}
+
+.action-buttons form {
+  display: inline-block; /* Allows forms to sit side-by-side */
+  margin: 0; /* Remove default form margin */
+}
+
+.action-buttons button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.approve-btn {
+  background-color: #10b981; /* Green for approve */
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #059669; /* Darker green on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.reject-btn {
+  background-color: #ef4444; /* Red for reject */
+  color: white;
+}
+
+.reject-btn:hover {
+  background-color: #dc2626; /* Darker red on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+}
+
+.no-action {
+  color: #6b7280; /* Gray for no action text */
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem; /* Consistent padding with buttons */
+  display: block; /* Ensures it takes up similar space */
+  text-align: center;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .requests-container {
+    padding: 1.5rem;
+    margin: 2rem auto;
+  }
+
+  .requests-container table {
+    display: block; /* Make table responsive by changing display type */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: nowrap; /* Prevent content from wrapping */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  /* Optional: Make cells narrower for better fit on small screens */
+  .requests-container th,
+  .requests-container td {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .action-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.3rem;
+  }
+
+  .action-buttons button,
+  .no-action {
+    width: 100%; /* Make buttons/text full width */
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Manage Books Page Specific Styles */
+.manage-container {
+  max-width: 1000px; /* Consistent with requests page for wider content */
+  margin: 3rem auto; /* Consistent vertical spacing */
+  padding: 2.5rem; /* Consistent padding */
+  background-color: #ffffff; /* Clean white background */
+  border-radius: 12px; /* Softly rounded corners */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Deeper, softer shadow */
+  font-family: 'Poppins', sans-serif;
+}
+
+.manage-container h2 {
+  font-size: 2.2rem;
+  color: #2563eb;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.manage-container h3 {
+  font-size: 1.6rem; /* Slightly larger heading for sections */
+  color: #2563eb;
+  margin-top: 2.5rem; /* More space above sub-headings */
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Add Book Form Styling */
+.manage-container form {
+  display: flex;
+  gap: 1rem; /* Consistent gap between form elements */
+  flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
+  margin: 1rem 0 3rem; /* More space below the form */
+  justify-content: center;
+  align-items: center; /* Align items vertically in the center */
+}
+
+input[type="text"],
+input[type="number"] {
+  flex-grow: 1; /* Allow inputs to grow and fill space */
+  max-width: 250px; /* Max width for individual inputs */
+  padding: 0.9rem 1.2rem; /* Generous padding for easier clicking/tapping */
+  border: 1px solid #d1d5db; /* Light gray border */
+  border-radius: 8px; /* Slightly rounded input fields */
+  font-size: 1rem;
+  color: #374151;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: #2563eb; /* Highlight border with primary color on focus */
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2); /* Soft blue glow on focus */
+}
+
+/* Add Book Button Styling */
+
+
+.manage-container form button[type="submit"]:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 5px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Book List Table Styling */
+.manage-container table {
+  width: 100%;
+  border-collapse: separate; /* Allows border-radius on cells */
+  border-spacing: 0;
+  margin-top: 1.5rem;
+  background-color: #f9fafb; /* Light background for the table */
+  border-radius: 10px;
+  overflow: hidden; /* Ensures border-radius is applied to content */
+}
+
+.manage-container th,
+.manage-container td {
+  padding: 1rem 1.2rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb; /* Subtle line between rows */
+  vertical-align: middle; /* Align content vertically */
+}
+
+.manage-container thead th {
+  background-color: #2563eb; /* Primary color for table header background */
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+/* Rounded corners for first and last header cells */
+.manage-container thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.manage-container thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* Styling for table body cells */
+.manage-container tbody td {
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+/* Alternate row styling for readability */
+.manage-container tbody tr:nth-child(even) {
+  background-color: #f3f6f9; /* Slightly different background for even rows */
+}
+
+/* Last row border removal for clean look */
+.manage-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.manage-container tbody tr:hover {
+  background-color: #eef2f5; /* Lighter hover effect for rows */
+}
+
+/* Delete Button Styling */
+.delete-btn {
+  background-color: #ef4444; /* Red for delete action */
+  color: white;
+  padding: 0.6rem 1.2rem; /* Consistent button padding */
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: inline-block; /* Ensure it behaves like a button */
+}
+
+
+/* Small adjustments for responsive forms */
+@media (max-width: 768px) {
+  .manage-container form {
+    flex-direction: column; /* Stack form elements vertically */
+    align-items: stretch; /* Stretch items to full width */
+  }
+
+  input[type="text"],
+  input[type="number"],
+  .manage-container form button[type="submit"] {
+    max-width: 100%; /* Full width on small screens */
+    width: 100%;
+  }
+
+  .manage-container table {
+    display: block; /* Make table responsive by changing display type */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    white-space: nowrap; /* Prevent content from wrapping */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  .manage-container th,
+  .manage-container td {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,29 @@
+<%- include('./partials/header') %>
+
+<section class="min-vh-100 d-flex align-items-center bg-light">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <!-- Kiri: Ilustrasi atau Gambar -->
+      <div class="col-md-6 mb-4 mb-md-0 text-center">
+        <img src="img/books.png" alt="Perpustakaan Digital" class="img-fluid" style="max-height: 350px;">
+      </div>
+      <!-- Kanan: Teks dan CTA -->
+      <div class="col-md-6 text-center text-md-start">
+        <h1 class="display-5 fw-bold text-primary">📖 Perpustakaan Digital</h1>
+        <p class="lead text-secondary mt-3">
+          Temukan ribuan buku dari berbagai genre, dari literatur klasik hingga jurnal ilmiah terbaru. Semua bisa diakses secara digital dengan mudah.
+        </p>
+        <p class="text-muted">
+          Daftar sekarang dan mulai jelajahi dunia pengetahuan tanpa batas!
+        </p>
+
+        <div class="d-flex justify-content-center justify-content-md-start gap-3 mt-4">
+          <a href="/login" class="btn btn-primary btn-lg px-4">Login</a>
+          <a href="/register" class="btn btn-outline-primary btn-lg px-4">Daftar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('./partials/footer') %>

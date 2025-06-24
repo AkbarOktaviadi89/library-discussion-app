@@ -1,0 +1,158 @@
+<%- include('../partials/header') %>
+
+<style>
+  /* Base styles for the dashboard container */
+  .dashboard-container {
+    width: 80%; /* Slightly wider container for more breathing room */
+    margin: 5rem auto; /* More vertical space above and below */
+    padding: 2.5rem; /* Increased padding */
+    background-color: #ffffff; /* Clean white background */
+    border-radius: 12px; /* Slightly larger border-radius for softer corners */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08); /* More pronounced, softer shadow */
+    font-family: 'Poppins', sans-serif; /* Ensure Poppins is applied */
+  }
+
+  /* Dashboard title styling */
+  .dashboard-title {
+    text-align: center;
+    font-size: 2.5rem; /* Larger title */
+    font-weight: 700; /* Bolder title */
+    margin-bottom: 2rem; /* More space below the title */
+    color: #2563eb; /* Your primary brand color */
+    letter-spacing: -0.5px; /* Slight letter spacing adjustment */
+  }
+
+  /* Statistics cards container */
+  .stats {
+    display: flex;
+    justify-content: center; /* Center the stat cards */
+    gap: 2rem; /* More space between cards */
+    margin-bottom: 3rem; /* More space below stats section */
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+  }
+
+  /* Individual statistic card styling */
+  .stat-card {
+    background-color: #f0f4f8; /* A very light blue background for stats */
+    padding: 2rem; /* More padding inside cards */
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08); /* Improved card shadow */
+    text-align: center;
+    flex: 1; /* Allow cards to take equal space */
+    min-width: 250px; /* Minimum width to prevent crushing on small screens */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth hover effect */
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12); /* Enhanced shadow on hover */
+  }
+
+  .stat-card h3 {
+    font-size: 1.6rem; /* Slightly larger heading */
+    color: #2563eb; /* Consistent primary color for headings */
+    margin-bottom: 0.8rem; /* More space below heading */
+    font-weight: 600; /* Bolder heading */
+  }
+
+  .stat-card p {
+    font-size: 2.5rem; /* Much larger number for emphasis */
+    color: #334155; /* A darker, more prominent color for numbers */
+    font-weight: 700; /* Extra bold for the count */
+    line-height: 1; /* Adjust line height for numbers */
+  }
+
+  /* Admin action links container */
+  .admin-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Consistent gap for links */
+    flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+  }
+
+  /* Admin action link styling */
+  .admin-links a {
+    text-decoration: none;
+    background-color: #2563eb; /* Use the primary brand color for buttons */
+    color: white;
+    padding: 1rem 2rem; /* Larger padding for a more prominent button */
+    border-radius: 8px;
+    font-weight: 600; /* Bolder text for buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Subtle shadow for buttons */
+  }
+
+  .admin-links a:hover {
+    background-color: #1a2a6e; /* Slightly darker shade on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
+  }
+
+  /* Optional: Responsive adjustments */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      margin: 1.5rem auto;
+      padding: 1.5rem;
+    }
+
+    .dashboard-title {
+      font-size: 2rem;
+    }
+
+    .stats {
+      flex-direction: column; /* Stack cards vertically on small screens */
+      align-items: center; /* Center stacked cards */
+    }
+
+    .stat-card {
+      width: 100%; /* Full width for stacked cards */
+      margin: 0.75rem 0; /* Space between stacked cards */
+    }
+
+    .stat-card h3 {
+      font-size: 1.4rem;
+    }
+
+    .stat-card p {
+      font-size: 2rem;
+    }
+
+    .admin-links {
+      flex-direction: column; /* Stack links vertically */
+      align-items: center; /* Center stacked links */
+    }
+
+    .admin-links a {
+      width: 80%; /* Make links take more width */
+      text-align: center;
+      margin-bottom: 1rem; /* Space between stacked links */
+    }
+  }
+</style>
+
+<div class="dashboard-container">
+  <h2 class="dashboard-title">📊 Dashboard Admin</h2>
+
+  <div class="stats">
+    <div class="stat-card">
+      <h3>📚 Total Buku</h3>
+      <p><%= bookCount %></p>
+    </div>
+    <div class="stat-card">
+      <h3>📨 Total Request</h3>
+      <p><%= requestCount %></p>
+    </div>
+    <div class="stat-card">
+      <h3>📨 Total Peminjaman Buku</h3>
+      <p><%= borrowCount %></p>
+    </div>
+  </div>
+
+  <div class="admin-links">
+    <a href="/admin/books">Kelola Buku</a>
+    <a href="/admin/borrows">Kelola Peminjaman</a>
+    <a href="/admin/requests">Lihat Request Buku</a>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

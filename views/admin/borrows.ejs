@@ -1,0 +1,107 @@
+<%- include('../partials/header') %>
+
+<style>
+  h2 {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: #2563eb;
+  }
+
+  table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  thead {
+    background-color: #2563eb;
+    color: white;
+  }
+
+  th, td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #1d4ed8;
+  }
+
+  .not-available {
+    color: #ef4444;
+    font-weight: bold;
+  }
+
+
+  .empty-message {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-top: 2rem;
+    background: #fef3c7;
+    padding: 1rem;
+    border-radius: 10px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+
+<h2>Daftar Peminjaman</h2>
+
+<div class="book-table-container">
+  <% if (borrows.length === 0) { %>
+    <div class="empty-message">Belum ada peminjaman buku.</div>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+            <th>User</th>
+            <th>Judul Buku</th>
+            <th>Penulis</th>
+            <th>Tanggal Pinjam</th>
+            <th>Aksi</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% borrows.forEach(borrow => { %>
+          <tr>
+            <td><%= borrow.user?.username %></td>
+            <td><%= borrow.book?.title %></td>
+            <td><%= borrow.book?.author %></td>
+            <td><%= new Date(borrow.borrowDate).toLocaleDateString() %></td>
+            <td>
+                <form action="/admin/borrows/<%= borrow._id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                  </form>                  
+              </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
