@@ -38,11 +38,12 @@
       class="flex-1 border border-gray-300 rounded-full px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition dark:bg-gray-700 text-white dark:border-gray-600"
         autocomplete="off">
         
-        <button type="button" id="clearBtn"
-          class="text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full">
-          Hapus Pesan
-        </button>
-      
+        <% if (currentUserRole === 'admin') { %>
+          <button type="button" id="clearBtn"
+            class="text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full">
+            Hapus Pesan
+          </button>
+        <% } %>
       <button type="submit"
         class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Kirim</button>
     </form>

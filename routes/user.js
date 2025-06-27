@@ -3,6 +3,7 @@ const router = express.Router();
 const Book = require('../models/Book');
 const Request = require('../models/Request');
 const { isLoggedIn, isUser } = require('../middlewares/auth');
+const User = require('../models/User');
 const Borrow = require('../models/Borrow');
 
 router.use(isLoggedIn, isUser);
@@ -72,10 +73,14 @@ router.get('/requests/new', (req, res) => {
   res.render('user/request-form');
 });
 
-
-router.get('/discussion', (req, res) => {
+router.get('/discussion', async (req, res) => {
   if (!req.session.userId) return res.redirect('/');
-  res.render('discussion');
+
+  const user = await User.findById(req.session.userId);
+  res.render('discussion', {
+    currentUser: user.username,
+    currentUserRole: user.role
+  });
 });
 
 module.exports = router;
