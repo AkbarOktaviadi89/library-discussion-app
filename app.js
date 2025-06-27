@@ -29,10 +29,16 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-  res.locals.currentUser = req.session.username || 'Anonymous';
-  res.locals.userRole = req.session.role;
+  if (req.session.username) {
+    res.locals.currentUser = req.session.username;
+    res.locals.userRole = req.session.role;
+  } else {
+    res.locals.currentUser = null; // atau undefined
+    res.locals.userRole = null;
+  }
   next();
 });
+
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -53,7 +59,6 @@ app.get('/', (req, res) => {
     }
     res.render('index');
   });
-  
 
   const http = require('http').createServer(app);
   const io = require('socket.io')(http);
@@ -65,6 +70,12 @@ app.get('/', (req, res) => {
     // Kirim pesan sebelumnya
     const messages = await Message.find().sort({ createdAt: 1 }).limit(50);
     socket.emit('load messages', messages);
+
+  // ✅ Handler untuk mengetik
+  socket.on('typing', (username) => {
+    console.log(`${username} sedang mengetik...`);
+    socket.broadcast.emit('typing', username);
+  });
   
     // Saat pesan dikirim
     socket.on('chat message', async (data) => {
@@ -77,11 +88,12 @@ app.get('/', (req, res) => {
         console.error('Gagal menyimpan pesan:', err.message);
       }
     });
-  
-    // ✅ Handler untuk mengetik
-    socket.on('typing', (username) => {
-      socket.broadcast.emit('typing', username); // kirim ke semua user kecuali pengirim
+    
+    socket.on('refresh messages', async () => {
+      const messages = await Message.find().sort({ createdAt: 1 });
+      io.emit('load messages', messages);
     });
+    
   
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);

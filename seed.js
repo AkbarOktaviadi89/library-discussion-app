@@ -5,6 +5,8 @@ const User = require('./models/User');
 const Book = require('./models/Book');
 const Borrow = require('./models/Borrow');
 const Request = require('./models/Request');
+const Message = require('./models/Message');
+
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/library-app';
 
@@ -18,6 +20,7 @@ async function seed() {
       User.deleteMany({}),
       Book.deleteMany({}),
       Borrow.deleteMany({}),
+      Message.deleteMany({}),
       Request.deleteMany({})
     ]);
     console.log('🧹 All collections cleared');

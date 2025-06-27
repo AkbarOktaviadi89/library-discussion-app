@@ -3,6 +3,8 @@ const router = express.Router();
 const Book = require('../models/Book');
 const Request = require('../models/Request');
 const Borrow = require('../models/Borrow');
+const Message = require('../models/Message');
+const User = require('../models/User');
 const { isLoggedIn, isAdmin } = require('../middlewares/auth');
 
 // Middleware
@@ -119,6 +121,29 @@ router.get('/dashboard', async (req, res) => {
   const requestCount = await Request.countDocuments();
   const borrowCount = await Borrow.countDocuments();
   res.render('admin/dashboard', { bookCount, requestCount, borrowCount });
+});
+
+
+router.get('/discussion', async (req, res) => {
+  if (!req.session.userId) return res.redirect('/');
+  
+  const user = await User.findById(req.session.userId);
+  res.render('discussion', {
+    currentUser: user.username,
+    currentUserRole: user.role
+  });
+});
+
+
+// ✅ Clear semua pesan diskusi
+router.post('/clear-messages', async (req, res) => {
+  try {
+    await Message.deleteMany({});
+    res.redirect('/admin/discussion');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Gagal menghapus pesan.");
+  }
 });
 
 module.exports = router;
