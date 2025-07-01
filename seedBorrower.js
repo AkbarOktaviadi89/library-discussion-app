@@ -34,7 +34,7 @@ async function seed() {
     // Buat user biasa
     const borrower = new User({
       username: 'akbar',
-      password: 'user123', // Akan di-hash juga
+      password: 'user123', // Akan di-hash
       role: 'user'
     });
     await borrower.save();
@@ -61,30 +61,45 @@ async function seed() {
     ]);
     console.log('📚 Books created:', books.map(b => b.title));
 
-    // Tambahkan satu peminjaman oleh user "akbar", tanggal 1 bulan lalu
+    // Peminjaman 1: Clean Code, tanggal 1 bulan lalu
     const lastMonth = new Date();
     lastMonth.setMonth(lastMonth.getMonth() - 1);
     lastMonth.setDate(1);
 
-    const borrow = new Borrow({
+    const borrow1 = new Borrow({
       user: borrower._id,
-      book: books[0]._id, // "Clean Code"
+      book: books[0]._id, // Clean Code
       borrowDate: lastMonth,
       returnDate: null,
       returnRequested: false,
       isReturned: false,
       fine: 0
     });
-    await borrow.save();
-    console.log('📄 Borrow record created for user:', borrower.username);
-
-    // Opsional: Kurangi stok buku
+    await borrow1.save();
     books[0].copies -= 1;
     await books[0].save();
+    console.log('📄 Borrow 1 created for:', borrower.username);
 
+    // Peminjaman 2: You Don’t Know JS, hari ini
+    const borrow2 = new Borrow({
+      user: borrower._id,
+      book: books[1]._id, // You Don’t Know JS
+      borrowDate: new Date(),
+      returnDate: null,
+      returnRequested: false,
+      isReturned: false,
+      fine: 0
+    });
+    await borrow2.save();
+    books[1].copies -= 1;
+    await books[1].save();
+    console.log('📄 Borrow 2 created for:', borrower.username);
+
+    // Selesai
+    console.log('🌱 Seeding completed!');
     process.exit();
   } catch (err) {
-    console.error('❌ Error:', err);
+    console.error('❌ Error during seeding:', err);
     process.exit(1);
   }
 }
