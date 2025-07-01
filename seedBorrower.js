@@ -30,8 +30,8 @@ async function seed() {
     console.log('👤 Admin user created:', admin.username);
 
     const borrower = new User({
-      username: 'akbar',
-      password: 'user123', 
+      username: 'user',
+      password: 'user', 
       role: 'user'
     });
     await borrower.save();
