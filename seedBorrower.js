@@ -13,7 +13,6 @@ async function seed() {
     await mongoose.connect(MONGO_URI);
     console.log('✅ Connected to MongoDB');
 
-    // Kosongkan semua koleksi
     await Promise.all([
       User.deleteMany({}),
       Book.deleteMany({}),
@@ -22,25 +21,22 @@ async function seed() {
     ]);
     console.log('🧹 All collections cleared');
 
-    // Buat user admin
     const admin = new User({
       username: 'admin',
-      password: 'admin123', // Akan di-hash oleh middleware
+      password: 'admin123', 
       role: 'admin'
     });
     await admin.save();
     console.log('👤 Admin user created:', admin.username);
 
-    // Buat user biasa
     const borrower = new User({
       username: 'akbar',
-      password: 'user123', // Akan di-hash
+      password: 'user123', 
       role: 'user'
     });
     await borrower.save();
     console.log('👤 Regular user created:', borrower.username);
 
-    // Tambahkan 2 buku
     const books = await Book.insertMany([
       {
         title: 'Clean Code',
@@ -61,14 +57,13 @@ async function seed() {
     ]);
     console.log('📚 Books created:', books.map(b => b.title));
 
-    // Peminjaman 1: Clean Code, tanggal 1 bulan lalu
     const lastMonth = new Date();
     lastMonth.setMonth(lastMonth.getMonth() - 1);
     lastMonth.setDate(1);
 
     const borrow1 = new Borrow({
       user: borrower._id,
-      book: books[0]._id, // Clean Code
+      book: books[0]._id, 
       borrowDate: lastMonth,
       returnDate: null,
       returnRequested: false,
@@ -80,10 +75,9 @@ async function seed() {
     await books[0].save();
     console.log('📄 Borrow 1 created for:', borrower.username);
 
-    // Peminjaman 2: You Don’t Know JS, hari ini
     const borrow2 = new Borrow({
       user: borrower._id,
-      book: books[1]._id, // You Don’t Know JS
+      book: books[1]._id, 
       borrowDate: new Date(),
       returnDate: null,
       returnRequested: false,
@@ -95,7 +89,6 @@ async function seed() {
     await books[1].save();
     console.log('📄 Borrow 2 created for:', borrower.username);
 
-    // Selesai
     console.log('🌱 Seeding completed!');
     process.exit();
   } catch (err) {
