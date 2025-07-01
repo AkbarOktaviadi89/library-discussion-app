@@ -77,12 +77,14 @@
     <table>
       <thead>
         <tr>
-            <th>User</th>
-            <th>Judul Buku</th>
-            <th>Penulis</th>
-            <th>Tanggal Pinjam</th>
-            <th>Aksi</th>
-
+          <th>User</th>
+          <th>Judul Buku</th>
+          <th>Penulis</th>
+          <th>Tgl Pinjam</th>
+          <th>Tgl Kembali</th>
+          <th>Denda</th>
+          <th>Status</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -93,13 +95,58 @@
             <td><%= borrow.book?.author %></td>
             <td><%= new Date(borrow.borrowDate).toLocaleDateString() %></td>
             <td>
+              <% if (borrow.returnDate) { %>
+                <%= new Date(borrow.returnDate).toLocaleDateString() %>
+              <% } else { %>
+                -
+              <% } %>
+            </td>
+            <td>
+              <% if (borrow.isReturned) { %>
+                <% if (borrow.fine > 0) { %>
+                  <span style="color: red;">Rp<%= borrow.fine %></span>
+                <% } else { %>
+                  Tidak ada
+                <% } %>
+              <% } else { 
+                  const now = new Date();
+                  const diffTime = now - new Date(borrow.borrowDate);
+                  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                  const fine = diffDays > 14 ? 45000 : 0;
+              %>
+                <% if (fine > 0) { %>
+                  <span style="color: red;">Rp. <%= fine %></span>
+                <% } else { %>
+                  Tidak ada
+                <% } %>
+              <% } %>
+            </td>
+            
+            <td>
+              <% if (borrow.isReturned) { %>
+                <span style="color: green;">Selesai</span>
+              <% } else if (borrow.returnRequested) { %>
+                <span style="color: orange;">Menunggu Validasi</span>
+              <% } else { %>
+                <span style="color: red;">Dipinjam</span>
+              <% } %>
+            </td>
+            <td>
+              <% if (borrow.returnRequested && !borrow.isReturned) { %>
+                <form method="POST" action="/admin/returns/<%= borrow._id %>/approve">
+                  <button type="submit">Validasi</button>
+                </form>
+              <% } else if (borrow.isReturned) { %>
+                <span>-</span>
+              <% } else { %>
                 <form action="/admin/borrows/<%= borrow._id %>?_method=DELETE" method="POST" style="display:inline;">
-                    <button onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
-                  </form>                  
-              </td>
+                  <button onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                </form>
+              <% } %>
+            </td>
           </tr>
         <% }) %>
-      </tbody>
+      </tbody>      
     </table>
   <% } %>
 </div>
