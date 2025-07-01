@@ -79,7 +79,10 @@
         <tr>
           <th>Judul</th>
           <th>Author</th>
-          <th>Tanggal Peminjaman</th>
+          <th>Tanggal Pinjam</th>
+          <th>Tanggal Kembali</th>
+          <th>Denda</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -89,16 +92,56 @@
               <td><%= borrow.book.title %></td>
               <td><%= borrow.book.author %></td>
               <td><%= borrow.borrowDate.toLocaleDateString() %></td>
+              <td>
+                <% if (borrow.isReturned) { %>
+                  <%= new Date(borrow.returnDate).toLocaleDateString() %>
+                <% } else { %>
+                  <span style="color: orange;">Belum dikembalikan</span>
+                <% } %>
+              </td>
+              <td>
+                <% if (borrow.isReturned) { %>
+                  <% if (borrow.fine > 0) { %>
+                    <span style="color: red;">Rp<%= borrow.fine %></span>
+                  <% } else { %>
+                    Tidak ada
+                  <% } %>
+                <% } else { 
+                    const now = new Date();
+                    const diffTime = now - new Date(borrow.borrowDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    const fine = diffDays > 14 ? 45000 : 0;
+                %>
+                  <% if (fine > 0) { %>
+                    <span style="color: red;">Rp. <%= fine %></span>
+                  <% } else { %>
+                    Tidak ada
+                  <% } %>
+                <% } %>
+              </td>  
+              <td>
+                <% if (!borrow.isReturned) { %>
+                  <% if (!borrow.returnRequested) { %>
+                    <form method="POST" action="/user/borrowed/request-return/<%= borrow._id %>">
+                      <button type="submit">Ajukan Pengembalian</button>
+                    </form>
+                  <% } else { %>
+                    <span style="color: orange;">Menunggu Validasi Admin</span>
+                  <% } %>
+                <% } else { %>
+                  <span style="color: green;">Selesai</span>
+                <% } %>
+              </td>              
             </tr>
           <% } else { %>
             <tr>
-              <td colspan="3" style="color: red;">
-                This book record is missing or deleted.
+              <td colspan="6" style="color: red;">
+                Buku ini sudah dihapus dari sistem.
               </td>
             </tr>
           <% } %>
         <% }) %>
-      </tbody>
+      </tbody>      
     </table>
   <% } %>
 </div>
