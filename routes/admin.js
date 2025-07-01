@@ -155,5 +155,27 @@ router.get('/returns', async (req, res) => {
   res.render('admin/returns', { borrows });
 });
 
+// Validasi pengembalian
+router.post('/returns/:id/approve', async (req, res) => {
+  const borrow = await Borrow.findById(req.params.id).populate('book');
+  if (!borrow) return res.redirect('/admin/borrows');
+
+  const returnDate = new Date();
+  const diffTime = returnDate - borrow.borrowDate;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  const fine = diffDays > 14 ? 45000 : 0; 
+
+  borrow.returnDate = returnDate;
+  borrow.isReturned = true;
+  borrow.returnRequested = false;
+  borrow.fine = fine;
+  await borrow.save();
+
+  borrow.book.copies += 1;
+  await borrow.book.save();
+
+  res.redirect('/admin/borrows');
+});
 
 module.exports = router;
