@@ -146,4 +146,14 @@ router.post('/clear-messages', async (req, res) => {
   }
 });
 
+
+// Lihat daftar pengembalian yang perlu divalidasi
+router.get('/returns', async (req, res) => {
+  const borrows = await Borrow.find({ returnRequested: true, isReturned: false })
+    .populate('user', 'username')
+    .populate('book', 'title');
+  res.render('admin/returns', { borrows });
+});
+
+
 module.exports = router;
